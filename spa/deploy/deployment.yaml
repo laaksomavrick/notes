@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: notesapi-deployment
+  name: notesspa-deployment
 spec:
   selector:
     matchLabels:
-      app: notesapi
+      app: notesspa
   replicas: 1
   template:
     metadata:
       labels:
-        app: notesapi
+        app: notesspa
     spec:
       containers:
-        - name: notesapi-container
-          image: laaksomavrick/notes:latest
+        - name: notesspa-container
+          image: laaksomavrick/notesspa:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 80
       imagePullSecrets:
         - name: regcred
