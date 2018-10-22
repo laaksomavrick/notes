@@ -19,7 +19,7 @@
     "array-type": [false],
     "no-empty-interface": false,
     "no-empty": false,
-    "no-any": true,
+    "no-any": false,
     "arrow-parens": false,
     "object-literal-sort-keys": false,
     "no-unused-expression": true,
@@ -29,7 +29,8 @@
     "one-variable-per-declaration": [false],
     "semicolon": true,
     "indent": [true, "spaces", 2],
-    "import-name": false
+    "import-name": false,
+    "no-console": false
   },
   "rulesDirectory": []
 }
