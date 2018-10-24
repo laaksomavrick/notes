@@ -11,3 +11,5 @@ A programmer oriented note taking app for code snippets
 - [ ] Frontend tests
 - [ ] Authentication - Oauth via google or github or passport?
 - [ ] Application logic: users, folders notes, search, CRUD
+
+https://github.com/nestjs/nest/issues/409

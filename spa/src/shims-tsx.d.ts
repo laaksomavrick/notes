@@ -7,7 +7,6 @@ declare global {
     // tslint:disable no-empty-interface
     interface ElementClass extends Vue {}
     interface IntrinsicElements {
-      // tslint:disable-next-line:no-any;
       [elem: string]: any;
     }
   }
