@@ -21,11 +21,11 @@ UserFactory = () => {
 // inject faker, return the thing
 }
 
-
 const users = create(User, {userId: 10}, 5);
 
 create(model, params, amount) {
 
-
-
 }
+
+http://typeorm.io/#/working-with-entity-manager
+https://github.com/nestjs/typeorm/issues/10

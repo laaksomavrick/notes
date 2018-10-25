@@ -1,5 +1,5 @@
 // https://github.com/vuejs/vetur/issues/423#issuecomment-384255018
 
-{
-  "extends": "./spa/tsconfig.json"
-}
+// {
+//   "extends": "./spa/tsconfig.json"
+// }

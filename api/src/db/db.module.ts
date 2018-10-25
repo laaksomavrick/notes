@@ -7,6 +7,6 @@ export const DatabaseModule = TypeOrmModule.forRoot({
   username: 'postgres',
   password: 'postgres',
   database: 'notes',
-  entities: [`${__dirname}/**/*.entity{.ts,.js}`],
+  entities: [`../**/*.entity{.ts,.js}`],
   synchronize: true,
 });
