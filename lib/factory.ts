@@ -19,5 +19,5 @@ export async function create<T>(
     params = params ? params : factories[model.name]();
     return times === 1
         ? manager.save(model, params)
-        : Array(times).map(async _ => await manager.create(model, params));
+        : Promise.all(Array(times).map(async _ => manager.save(model, params)));
 }
