@@ -20,16 +20,8 @@ describe('Users (e2e)', () => {
     });
 
     it('/GET users', async () => {
-        const user = {
-            id: 1,
-            email: 'laakso.mavrick@gmail.com',
-            password: 'password'
-        };
-
-        await create(User, user);
-
+        const user = await create(User);
         const response = await request(app.getHttpServer()).get('/users');
-
         expect(response.status).toEqual(200);
         expect(response.body).toEqual([user]);
     });

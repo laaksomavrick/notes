@@ -1,16 +1,23 @@
+import faker from 'faker';
 import { getManager } from 'typeorm';
 
-// todo check for factory fns; faker
-// todo have this return the models as well? efficiency doesn't matter
+const factories = {
+    User: () => {
+        return {
+            email: faker.internet.email(),
+            password: faker.internet.password()
+        };
+    }
+};
+
 export async function create<T>(
-  model: new () => T,
-  params: object,
-  times: number = 1,
-): Promise<void> {
-  const manager = getManager();
-  if (times === 1) {
-    await manager.save(model, params);
-  } else {
-    Array(times).map(async _ => await manager.create(model, params));
-  }
+    model: new () => T,
+    params: object = null,
+    times: number = 1
+): Promise<object | object[]> {
+    const manager = getManager();
+    params = params ? params : factories[model.name]();
+    return times === 1
+        ? manager.save(model, params)
+        : Array(times).map(async _ => await manager.create(model, params));
 }
