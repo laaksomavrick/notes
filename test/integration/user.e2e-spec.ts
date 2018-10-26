@@ -8,37 +8,37 @@ import { UserModule } from '../../src/user/user.module';
 import { cleanDatabase } from '../test.utils';
 
 describe('Users (e2e)', () => {
-  let app: INestApplication;
+    let app: INestApplication;
 
-  beforeAll(async () => {
-    const moduleFixture = await Test.createTestingModule({
-      imports: [AppModule, UserModule],
-    }).compile();
+    beforeAll(async () => {
+        const moduleFixture = await Test.createTestingModule({
+            imports: [AppModule, UserModule]
+        }).compile();
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
+        app = moduleFixture.createNestApplication();
+        await app.init();
+    });
 
-  it('/GET users', async () => {
-    const user = {
-      id: 1,
-      email: 'laakso.mavrick@gmail.com',
-      password: 'password',
-    };
+    it('/GET users', async () => {
+        const user = {
+            id: 1,
+            email: 'laakso.mavrick@gmail.com',
+            password: 'password'
+        };
 
-    await create(User, user);
+        await create(User, user);
 
-    const response = await request(app.getHttpServer()).get('/users');
+        const response = await request(app.getHttpServer()).get('/users');
 
-    expect(response.status).toEqual(200);
-    expect(response.body).toEqual([user]);
-  });
+        expect(response.status).toEqual(200);
+        expect(response.body).toEqual([user]);
+    });
 
-  afterEach(async () => {
-    await cleanDatabase();
-  });
+    afterEach(async () => {
+        await cleanDatabase();
+    });
 
-  afterAll(async () => {
-    await app.close();
-  });
+    afterAll(async () => {
+        await app.close();
+    });
 });
