@@ -1,6 +1,7 @@
 import { getManager } from 'typeorm';
 
 // todo check for factory fns; faker
+// todo have this return the models as well? efficiency doesn't matter
 export async function create<T>(
   model: new () => T,
   params: object,

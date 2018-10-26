@@ -7,7 +7,7 @@ import { User } from '../../src/user/user.entity';
 import { UserModule } from '../../src/user/user.module';
 import { cleanDatabase } from '../test.utils';
 
-describe('AppController (e2e)', () => {
+describe('Users (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -40,6 +40,5 @@ describe('AppController (e2e)', () => {
 
   afterAll(async () => {
     await app.close();
-    // todo clear all created data
   });
 });

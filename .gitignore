@@ -1,4 +1,2 @@
-api/node_modules/
-api/dist/
-spa/node_modules/
-spa/dist/
+node_modules/
+dist/
