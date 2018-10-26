@@ -7,13 +7,11 @@ import { Token } from './token.entity';
 
 @Injectable()
 export class TokenService {
-    constructor(
-        @InjectRepository(Token) private readonly tokenRepository: Repository<Token>
-    ) {}
+    constructor(@InjectRepository(Token) private readonly tokenRepository: Repository<Token>) {}
 
     async generate(user: User): Promise<Token> {
         const token = jwt.sign({ id: user.id }, 'todo a secret');
-        const model = this.tokenRepository.create({token, user});
+        const model = this.tokenRepository.create({ token, user });
         return this.tokenRepository.save(model);
     }
 }
