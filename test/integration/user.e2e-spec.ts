@@ -33,8 +33,7 @@ describe('Users (e2e)', () => {
         const response = await request(app.getHttpServer())
             .post('/users')
             .send(payload);
-        expect(response.status).toEqual(500);
-        expect(response.body.error).toEqual('QueryFailedError');
+        expect(response.status).toEqual(400);
     });
 
     afterEach(async () => {

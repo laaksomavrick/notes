@@ -44,6 +44,16 @@ const config = convict({
             default: true,
             env: 'DB_SYNC'
         }
+    },
+    secret: {
+        jwt: {
+            default: 'aaaaaaaaaaaaaaaa',
+            env: 'SECRET_JWT'
+        },
+        bcrypt: {
+            default: 'aaaaaaaaaaaaaaaa',
+            env: 'SECRET_BCRYPT'
+        }
     }
 });
 

@@ -1,4 +1,4 @@
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppExceptionFilter } from './app/app.exception-filter';
 import { AppModule } from './app/app.module';
@@ -13,7 +13,8 @@ async function bootstrap() {
 bootstrap();
 
 export function buildApp(raw: INestApplication): INestApplication {
-    raw.useGlobalFilters(new AppExceptionFilter());
+    // raw.useGlobalFilters(new AppExceptionFilter());
+    raw.useGlobalPipes(new ValidationPipe());
     raw.enableCors();
     return raw;
 }
