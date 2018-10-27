@@ -3,8 +3,8 @@ import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { factories } from '../../lib/factory';
 import { AppModule } from '../../src/app/app.module';
+import { buildApp } from '../../src/main';
 import { cleanDatabase } from '../test.utils';
-import { AppExceptionFilter } from '../../src/app/app.exception-filter';
 
 describe('Users (e2e)', () => {
     let app: INestApplication;
@@ -14,9 +14,8 @@ describe('Users (e2e)', () => {
             imports: [AppModule]
         }).compile();
 
-        app = moduleFixture.createNestApplication();
-        app.enableCors();
-        app.useGlobalFilters(new AppExceptionFilter());
+        const raw = moduleFixture.createNestApplication();
+        app = buildApp(raw);
         await app.init();
     });
 
