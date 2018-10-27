@@ -16,7 +16,7 @@ export async function create<T>(
     times: number = 1
 ): Promise<object | object[]> {
     const manager = getManager();
-    params = params ? params : factories[model.name]();
+    params = params ? { ...factories[model.name](), ...params } : factories[model.name]();
     return times === 1
         ? manager.save(model, params)
         : Promise.all(Array(times).map(async _ => manager.save(model, params)));

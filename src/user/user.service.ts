@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CryptoService } from '../crypto/crypto.service';
@@ -16,10 +16,13 @@ export class UserService {
         @InjectRepository(Token) private readonly tokenRepository: Repository<Token>
     ) {}
 
-    async create(createWorkoutDto: CreateUserDto): Promise<User> {
-        const model = this.userRepository.create(createWorkoutDto);
-        const hashed = await this.cryptoService.hash(model.password);
-        model.password = hashed;
+    async create(createUserDto: CreateUserDto): Promise<User> {
+        // todo confirm user doesn't already exist
+        const userExists = await this.findOneByEmailWithToken(createUserDto.email);
+        if (userExists) {
+            throw new ForbiddenException();
+        }
+        const model = this.userRepository.create(createUserDto);
         const user = await this.userRepository.save(model);
         await this.tokenService.generate(user);
         return user;
@@ -35,5 +38,12 @@ export class UserService {
             relations: ['user']
         });
         return token.user;
+    }
+
+    async findOneByEmailWithToken(input: string): Promise<User> {
+        return this.userRepository.findOne({
+            where: { email: input },
+            relations: ['token']
+        });
     }
 }

@@ -1,9 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
-import { factories } from '../../lib/factory';
+import { create, factories } from '../../lib/factory';
 import { AppModule } from '../../src/app/app.module';
 import { buildApp } from '../../src/main';
+import { User } from '../../src/user/user.entity';
 import { cleanDatabase } from '../test.utils';
 
 describe('Users (e2e)', () => {
@@ -34,6 +35,15 @@ describe('Users (e2e)', () => {
             .post('/users')
             .send(payload);
         expect(response.status).toEqual(400);
+    });
+
+    it('does not create a user when the user already exists', async () => {
+        const user = (await create(User)) as User;
+        const payload = { email: user.email, password: 'somepassword' };
+        const response = await request(app.getHttpServer())
+            .post('/users')
+            .send(payload);
+        expect(response.status).toEqual(403);
     });
 
     afterEach(async () => {
