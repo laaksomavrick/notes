@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { getManager } from 'typeorm';
 
-const factories = {
+export const factories = {
     User: () => {
         return {
             email: faker.internet.email(),

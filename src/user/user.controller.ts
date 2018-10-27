@@ -8,17 +8,17 @@ import { UserService } from './user.service';
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
-    @Get()
-    async findAll(): Promise<User[]> {
-        return this.userService.findAll();
-    }
+    // @Get()
+    // async findAll(): Promise<User[]> {
+    //     return this.userService.findAll();
+    // }
 
-    @Get('protected')
-    @UseGuards(AuthGuard('bearer'))
-    async findAllProtected(): Promise<User[]> {
-        // todo delete, here for testing in dev
-        return this.userService.findAll();
-    }
+    // @Get('protected')
+    // @UseGuards(AuthGuard('bearer'))
+    // async findAllProtected(): Promise<User[]> {
+    //     // todo delete, here for testing in dev
+    //     return this.userService.findAll();
+    // }
 
     @Post()
     async create(@Body() payload: CreateUserDto): Promise<User> {
