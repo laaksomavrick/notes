@@ -24,7 +24,8 @@ export class UserService {
         }
         const model = this.userRepository.create(createUserDto);
         const user = await this.userRepository.save(model);
-        await this.tokenService.generate(user);
+        const token = await this.tokenService.generate(user);
+        user.token = token;
         return user;
     }
 
