@@ -1,4 +1,4 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CryptoService } from '../crypto/crypto.service';
@@ -17,7 +17,6 @@ export class UserService {
     ) {}
 
     async create({ email, password }: CreateUserDto): Promise<User> {
-        // todo confirm user doesn't already exist
         const exists = await this.findOneByEmailWithToken(email);
         if (exists) {
             throw new ForbiddenException();
