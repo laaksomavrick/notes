@@ -16,13 +16,14 @@ export class UserService {
         @InjectRepository(Token) private readonly tokenRepository: Repository<Token>
     ) {}
 
-    async create(createUserDto: CreateUserDto): Promise<User> {
+    async create({ email, password }: CreateUserDto): Promise<User> {
         // todo confirm user doesn't already exist
-        const userExists = await this.findOneByEmailWithToken(createUserDto.email);
-        if (userExists) {
+        const exists = await this.findOneByEmailWithToken(email);
+        if (exists) {
             throw new ForbiddenException();
         }
-        const model = this.userRepository.create(createUserDto);
+        const hashed = await this.cryptoService.hash(password);
+        const model = this.userRepository.create({ email, password: hashed });
         const user = await this.userRepository.save(model);
         const token = await this.tokenService.generate(user);
         user.token = token;

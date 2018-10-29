@@ -1,5 +1,4 @@
-import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { CryptoService } from '../crypto/crypto.service';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Token } from './token/token.entity';
 
 @Entity('users')
@@ -15,9 +14,4 @@ export class User {
 
     @OneToOne(type => Token, token => token.user)
     token: Token;
-
-    @BeforeInsert()
-    async hashPassword() {
-        this.password = await new CryptoService().hash(this.password);
-    }
 }
