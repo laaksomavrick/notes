@@ -6,17 +6,19 @@ import {
     Param,
     Post,
     Put,
-    Query,
+    Req,
     UseGuards,
     UsePipes,
     ValidationPipe
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateFolderDto, UpdateFolderDto } from './folder.dto';
+import { FolderService } from './folder.service';
 
 @Controller('folders')
-// @UseGuards(AuthGuard('bearer'))
+@UseGuards(AuthGuard('bearer'))
 export class FoldersController {
+    constructor(private readonly folderService: FolderService) {}
     @Post()
     @UsePipes(ValidationPipe)
     async create(@Body() createFolderDto: CreateFolderDto) {
@@ -24,8 +26,9 @@ export class FoldersController {
     }
 
     @Get()
-    async findAll(@Query() query) {
-        return [];
+    async findAll(@Req() req) {
+        const { user } = req;
+        return this.folderService.findAllByUser(user);
     }
 
     @Get(':id')
