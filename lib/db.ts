@@ -16,9 +16,9 @@ async function getEntities() {
 async function cleanAll(entities) {
     try {
         for (const entity of entities) {
-            await getConnection().query(`TRUNCATE TABLE ${entity.tableName} CASCADE`);
+            await getConnection().query(`DELETE FROM ${entity.tableName} WHERE id > 0`);
         }
     } catch (error) {
-        throw new Error(`ERROR: Cleaning test db: ${error}`);
+        throw new Error(`ERROR: Cleaning db: ${error}`);
     }
 }

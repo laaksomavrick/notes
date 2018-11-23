@@ -25,15 +25,15 @@ const config = convict({
             env: 'DB_HOST'
         },
         port: {
-            default: 5432,
+            default: 3306,
             env: 'DB_PORT'
         },
         username: {
-            default: 'postgres',
+            default: 'root',
             env: 'DB_USERNAME'
         },
         password: {
-            default: 'postgres',
+            default: 'root',
             env: 'DB_PASSWORD'
         },
         schema: {

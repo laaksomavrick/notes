@@ -1,12 +1,12 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
+import { cleanDatabase } from '../../lib/db';
 import { create, factories } from '../../lib/factory';
 import { AppModule } from '../../src/app/app.module';
 import { buildApp } from '../../src/main';
 import { User } from '../../src/user/user.entity';
 import { UserService } from '../../src/user/user.service';
-import { cleanDatabase } from '../test.utils';
 
 describe('Auth (e2e)', () => {
     let app: INestApplication;
