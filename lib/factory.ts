@@ -1,21 +1,15 @@
 import faker from 'faker';
-import jwt from 'jsonwebtoken';
 import { getManager } from 'typeorm';
-import config from '../src/config';
 
 export const factories = {
-    User: (params = null) => ({
+    User: () => ({
         email: faker.internet.email(),
         // this is 'qweqweqwe'
         password: '$2b$10$Ai/AaD79Sib0A2aBEgBSrebmI9hglZUgZhyRltDxY2WtHhZtrKfpK'
     }),
-    Token: params => {
-        const { userId } = params;
-        return {
-            token: jwt.sign({ id: userId.id }, config.get('secret.jwt')),
-            userId
-        };
-    }
+    Folder: () => ({
+        name: faker.random.word()
+    })
 };
 
 export async function create<T>(
@@ -34,9 +28,7 @@ export async function create<T>(
 }
 
 const getParams = (model, params) =>
-    params !== null
-        ? { ...factories[model.name](params), ...params }
-        : factories[model.name](params);
+    params !== null ? { ...factories[model.name](), ...params } : factories[model.name]();
 
 const createModel = (manager, model, params) => {
     const instanceParams = getParams(model, params);

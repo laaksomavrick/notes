@@ -17,9 +17,7 @@ export class FolderService {
     }
 
     async findAllByUser(user: User): Promise<Folder[]> {
-        return this.folderRepository.find({
-            where: { userId: user.id }
-        });
+        return this.folderRepository.find({ user });
     }
 
     // update

@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Folder } from '../folder/folder.entity';
+import { Note } from '../notes/notes.entity';
 import { Token } from './token/token.entity';
 
 @Entity('users')
@@ -18,4 +19,7 @@ export class User {
 
     @OneToMany(type => Folder, folder => folder.user)
     folders: Folder[];
+
+    @OneToMany(type => Note, note => note.user)
+    notes: Note[];
 }
